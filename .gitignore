@@ -34,3 +34,5 @@
 # Others
 .vscode
 out/
+utils/
+test.cpp
