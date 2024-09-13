@@ -12,12 +12,13 @@ int main() {
     posters = 0;
     while (n--) {
         cin >> l >> h;
+        
         if (h != prev_h) {
             scnd_last_diff_h = last_diff_h;
             last_diff_h = prev_h;
         }
 
-        if (h > prev_h || (h < prev_h && h != scnd_last_diff_h)) 
+        if (h > prev_h || (h < prev_h && h != scnd_last_diff_h))
             posters++;
 
         prev_h = h;

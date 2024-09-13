@@ -8,7 +8,7 @@ int main() {
 
     stack<int> station;
     queue<int> train;
-    int n, coach, wanted_coach;
+    int n, coach;
 
     while (cin >> n, n) {
         while (cin >> coach, coach) {
