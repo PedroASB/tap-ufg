@@ -4,13 +4,13 @@ using namespace std;
 
 const int MAX = 2*1e5;
 
-int parent[MAX], ranking[MAX], size[MAX];
+int parent[MAX], ranking[MAX], set_size[MAX];
 
 void init(int n) {
     for (int i = 0; i < n; i++) {
         parent[i] = i;
         ranking[i] = 0;
-        size[i] = 1;
+        set_size[i] = 1;
     }
 }
 
@@ -26,15 +26,15 @@ void unite(int a, int b) {
 
     if (ranking[a] < ranking[b]) {
         parent[a] = b;
-        size[b] += size[a];
+        set_size[b] += set_size[a];
     }
     else if (ranking[a] > ranking[b]) {
         parent[b] = a;
-        size[a] += size[b];
+        set_size[a] += set_size[b];
     }
     else {
         parent[a] = b;
-        size[b] += size[a];
+        set_size[b] += set_size[a];
         ranking[b]++;
     }
 }
@@ -53,7 +53,7 @@ int main() {
             cin >> a >> b;
             unite(a, b);
         }
-        cout << *max_element(size, size + n) << '\n';
+        cout << *max_element(set_size, set_size + n) << '\n';
     }
     
     return 0;
