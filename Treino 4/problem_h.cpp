@@ -48,9 +48,9 @@ typedef struct graph {
     double total_weight = 0;
 } Graph;
 
-void add_edge(Graph graph, int v1, int v2, int weight) {
-    graph.edge_list.push_back(make_pair(weight, make_pair(v1, v2)));
-	graph.total_weight += weight;
+void add_edge(Graph *graph, int v1, int v2, double weight) {
+    graph->edge_list.push_back(make_pair(weight, make_pair(v1, v2)));
+	graph->total_weight += weight;
 }
 
 Graph kruskal(Graph graph, int qtt_vertices) {
@@ -68,10 +68,10 @@ Graph kruskal(Graph graph, int qtt_vertices) {
 		
 		if (find(curr_v1) != find(curr_v2)) {
 			unite(curr_v1, curr_v2);            
-            add_edge(mst, curr_v1, curr_v2, curr_weight);
+            add_edge(&mst, curr_v1, curr_v2, curr_weight);
 		}
 	}
-	
+
 	return mst;
 }
 
@@ -81,8 +81,6 @@ double euclidian_distance(Point a, Point b) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-
-// Não finalizado
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -91,25 +89,31 @@ int main() {
     double min_total_lenght;
     vector<Point> points;
     Graph graph, mst;
+    
     cin >> t;
 
     while (t--) {
         cin >> n;
         points.resize(n);
         cin >> points[0].first >> points[0].second;
+
         for (int i = 1; i < n; i++) {
             cin >> points[i].first >> points[i].second;
             for (int j = 0; j < i; j++) {
-                add_edge(graph, j, i, euclidian_distance(points[j], points[i]));
+                add_edge(&graph, j, i, euclidian_distance(points[j], points[i]));
             }
         }
+
         mst = kruskal(graph, n);
+
         min_total_lenght = 0;
-        for (auto e: mst.edge_list) {
+        for (auto e: mst.edge_list)
             min_total_lenght += e.first;
-        }
-        cout << setprecision(2) << min_total_lenght << "\n\n";
-        points.clear();
+        
+        cout << fixed << setprecision(2) << min_total_lenght << '\n';
+        if (t > 0) cout << '\n';
+    
+        points.clear(), graph.edge_list.clear(), mst.edge_list.clear();
     }
     
     return 0;
