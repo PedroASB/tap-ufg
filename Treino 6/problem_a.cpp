@@ -1,18 +1,16 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef unsigned long long ull;
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
    
-    ull i, n;
+    unsigned int n, i;
 
     cin >> n >> i;
-    bitset<64> bits(n);
 
-    cout << (bits.test(i) ? "true\n" : "false\n");
+    cout << (n & (1 << i) ? "true\n" : "false\n");
 
     return 0;
 }
